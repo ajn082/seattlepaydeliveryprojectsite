@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { site, indexingReady } from "../src/config/site.ts";
+import { site, indexingReady, publicUrl } from "../src/config/site.ts";
+import { withBase, withoutBase } from "../src/utils/urls.ts";
 
 const root = fileURLToPath(new URL("../dist/", import.meta.url));
 const routes = [
@@ -25,6 +26,13 @@ for (const route of routes) {
   pages.set(route, await readFile(join(root, filename), "utf8"));
 }
 const titles = new Set();
+const base = (process.env.SITE_BASE_PATH || "/").replace(/\/+$/, "");
+const checkBase = (path, route) => {
+  assert(
+    !base || path === base || path.startsWith(`${base}/`),
+    `${route}: internal destination escapes the configured base: ${path}`,
+  );
+};
 let links = 0;
 for (const [route, html] of pages) {
   assert.equal(
@@ -53,7 +61,7 @@ for (const [route, html] of pages) {
   );
   assert(
     involvementLinks.every(([anchor]) =>
-      anchor.includes('href="/get-involved"'),
+      anchor.includes(`href="${withBase("/get-involved")}"`),
     ),
     `${route}: Get involved must lead to its real page`,
   );
@@ -68,8 +76,9 @@ for (const [route, html] of pages) {
         `${route}: survey destination is not centralized`,
       );
     if (!href.startsWith("/") && !href.startsWith("#")) continue;
-    const parsed = new URL(href, "https://local.invalid" + route);
-    const path = parsed.pathname.replace(/\/$/, "") || "/";
+    const parsed = new URL(href, "https://local.invalid" + withBase(route));
+    checkBase(parsed.pathname, route);
+    const path = withoutBase(parsed.pathname).replace(/\/$/, "") || "/";
     const destination = pages.get(path);
     if (destination) {
       if (parsed.hash)
@@ -84,7 +93,36 @@ for (const [route, html] of pages) {
       await stat(join(root, decodeURIComponent(path)));
     }
   }
+  for (const element of html.matchAll(/<(?:img|script|link)\b[^>]*>/g)) {
+    const asset = element[0].match(/\b(?:src|href)="([^"]+)"/)?.[1];
+    if (!asset?.startsWith("/")) continue;
+    const parsed = new URL(asset, "https://local.invalid");
+    checkBase(parsed.pathname, route);
+    await stat(join(root, decodeURIComponent(withoutBase(parsed.pathname))));
+  }
+  assert.equal(
+    html.includes("home-header"),
+    route === "/",
+    `${route}: homepage header styling must follow the route beneath the base`,
+  );
+  if (site.canonicalUrl) {
+    assert(
+      html.includes(
+        `property="og:image" content="${publicUrl("/social-card.png")}"`,
+      ),
+      `${route}: sharing image must retain the site's URL prefix`,
+    );
+  }
   if (!indexingReady) assert.match(html, /noindex, nofollow/);
+}
+if (site.canonicalUrl) {
+  const sitemap = await readFile(join(root, "sitemap.xml"), "utf8");
+  for (const route of routes.filter((route) => route !== "/404")) {
+    assert(
+      sitemap.includes(`<loc>${publicUrl(route)}</loc>`),
+      `${route}: sitemap must retain the site's URL prefix`,
+    );
+  }
 }
 await stat(join(root, "social-card.png"));
 await stat(join(root, "favicon.svg"));

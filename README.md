@@ -1,6 +1,6 @@
 # Seattle Delivery Pay Project
 
-A local, static website for independent student-led research on Seattle delivery pay. Built with Astro 7, TypeScript, and native CSS. There is no server application, custom survey database, analytics, account system, or payment integration. Nothing has been deployed.
+A static website for independent student-led research on Seattle delivery pay. Built with Astro 7, TypeScript, and native CSS. There is no server application, custom survey database, analytics, account system, or payment integration.
 
 ## Run locally
 
@@ -24,6 +24,23 @@ npm run check:release  # Fails until the required public-launch inputs are compl
 ```
 
 The built `dist/` folder is portable static output. Serve it over HTTP rather than opening its HTML files with `file://`. A future host should serve each route’s `index.html` and use `404.html` for unmatched routes.
+
+## GitHub Pages
+
+The deployment workflow is `.github/workflows/deploy.yml`. In the repository's **Settings > Pages**, the publishing source must be **GitHub Actions**. It checks and builds the site with Node 24 on pushes to `main`, then publishes only after `npm run check:release` succeeds. The workflow can also be started from the Actions tab.
+
+The expected public address is **https://ajn082.github.io/seattlepaydeliveryprojectsite/**. The workflow sets `SITE_BASE_PATH=/seattlepaydeliveryprojectsite`; Astro and the shared URL helpers use this prefix for internal links and assets. Local development keeps its usual root address.
+
+To verify the Pages build locally:
+
+```sh
+SITE_BASE_PATH=/seattlepaydeliveryprojectsite npm run build
+npm run check:release
+```
+
+The release check deliberately fails while survey response access, retention/deletion, or participation/privacy review is unconfirmed. Complete those factual settings in `src/config/site.ts` before publication. Do not invent practices or remove the check to obtain a deployment.
+
+For a future custom domain, update `canonicalUrl` in `src/config/site.ts`, remove the repository prefix from the workflow's `SITE_BASE_PATH`, and configure the domain in GitHub Pages. Shared links, canonical URLs, social images, and the sitemap use these settings.
 
 ## Where to edit
 
@@ -67,13 +84,13 @@ No page-layout changes are needed. Do not create entries for planned milestones 
 - Review actual Tally settings, access, provider terms, optional uploads, and the live questionnaire. The website deliberately avoids promising complete anonymity. It never changes the form or submits test responses.
 - Have the school supervisor review research, consent, and privacy language where appropriate. No institutional relationship or ethics approval is claimed.
 - After the review is complete, set `survey.privacyConfirmed` to `true`. This is a manual assertion that the review happened; it does not itself change Tally or establish a privacy policy.
-- Set `canonicalUrl` to the final HTTPS domain, without a path. Canonical tags, the absolute sharing-image URL, and the sitemap use this setting. No example domain has been invented.
+- `canonicalUrl` is configured as `https://ajn082.github.io/seattlepaydeliveryprojectsite/`. It includes the repository path. Canonical tags, the absolute sharing-image URL, and the sitemap preserve this prefix. Update it if a custom domain is added.
 - Review the chosen hosting provider’s request logging and add accurate hosting details to the privacy notice.
 - Recheck official sources, live survey eligibility and estimated duration, public contact email, and the current project status; update `reviewedAt` only after review.
 - Run `npm run check`, `npm run build`, and `npm run check:release` before publication. Repeat the mobile and keyboard review after material design changes.
-- Publish only after explicit authorization. This project has no deployment command or connected hosting service.
+- Publish only after explicit authorization. Publication uses the GitHub Actions workflow and requires the release check to pass.
 
-Until the domain and privacy review are configured, pages contain `noindex, nofollow`, `robots.txt` disallows crawling, and the sitemap contains no invented URLs. These are indexing instructions, **not access control**. Keep the unfinished site local.
+If the public URL or privacy review is unconfirmed, pages contain `noindex, nofollow` and `robots.txt` disallows crawling. These are indexing instructions, **not access control**. The configured public URL and confirmed privacy settings now permit indexing; an unfinished copy should remain local.
 
 The volunteer form and flyer are **optional** for Phase 1. Email inquiries work now. A configured `volunteerUrl` replaces the volunteer email action. A configured `flyerUrl` makes an approved flyer download appear. Leave them `null` until real, reviewed destinations exist. No report PDF, QR code, survey results, or later-phase feature is fabricated.
 

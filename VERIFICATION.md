@@ -1,6 +1,15 @@
 # Verification
 
-Initial checks completed locally on October 27, 2026; the latest hero motion revision was checked on October 28, 2026, using the bundled Node 24.19.0 runtime. The site has not been deployed and the live Tally form has not been changed or submitted during testing.
+Initial checks completed locally on October 27, 2026; the hero and GitHub Pages setup were checked on October 28, 2026, using the bundled Node 24.19.0 runtime. The live Tally form has not been changed or submitted during testing.
+
+## GitHub Pages setup - October 28, 2026
+
+- Added a Node 24 deployment workflow for the `main` branch and configured GitHub Pages to use GitHub Actions. The deployment retains the project's public-release check.
+- Type and content checks passed with zero diagnostics. Both the local root build and the `/seattlepaydeliveryprojectsite` build passed page, link, and asset checks. The final Pages build contains seven HTML pages and 204 links.
+- Verified the Pages build in the in-app browser: the hero image loads, the worker page opens through navigation, the active navigation state is correct, survey destinations remain unchanged, and the confirmed privacy notice renders. No Chrome or Lighthouse process was started for this hosting setup.
+- Canonical URLs, the sharing image, favicon, internal navigation, anchors, and the sitemap preserve the repository URL prefix. Local development retains its root address.
+- The researcher confirmed that only Amaye Jain has project-account access to responses and optional screenshots. Raw responses and screenshots are retained for the research and related advocacy, then deleted when that work is complete; no fixed end date has been set. The privacy configuration is confirmed and the release check passes.
+- The site discloses GitHub Pages hosting and GitHub's logging of visitor IP addresses for security. No project analytics or advertising trackers were added.
 
 ## Build and content
 
@@ -49,7 +58,7 @@ Lighthouse 13.6.0 was run against the local production build with its default mo
 | Home        | 100         | 100           | 100            | 63  | 0.8s | 0.013 | 5.5ms         |
 | For Workers | 100         | 100           | 100            | 63  | 0.8s | 0.002 | 0ms           |
 
-The Home measurement was repeated with the illustrated hero and animated headline running; Workers does not load the story animation script and its earlier measurement is retained. The SEO score reflects the **intentional indexing block** on this unfinished local review build. The robots directives remain restrictive until the final domain and complete privacy review are configured. An automated accessibility score does not replace a full assistive-technology audit, and removing a pause control is not a claim of conformance for continuous motion.
+The Home measurement was repeated with the illustrated hero and animated headline running; Workers does not load the story animation script and its earlier measurement is retained. These historical SEO scores reflect the intentional indexing block used before the public URL and privacy review were configured. The GitHub Pages setup now permits indexing after those settings were confirmed. An automated accessibility score does not replace a full assistive-technology audit, and removing a pause control is not a claim of conformance for continuous motion.
 
 Measured contrast ratios for the principal pairs:
 

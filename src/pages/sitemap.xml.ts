@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { site } from "../config/site";
+import { site, publicUrl } from "../config/site";
 export const GET: APIRoute = () => {
   const routes = [
     "/",
@@ -13,7 +13,7 @@ export const GET: APIRoute = () => {
     ? routes
         .map(
           (route) =>
-            `<url><loc>${new URL(route, site.canonicalUrl!).href.replaceAll("&", "&amp;")}</loc></url>`,
+            `<url><loc>${publicUrl(route)!.replaceAll("&", "&amp;")}</loc></url>`,
         )
         .join("")
     : "";

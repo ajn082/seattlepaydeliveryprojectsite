@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../utils/urls";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SurveyLink from "../components/SurveyLink.astro";
 import GetInvolvedLink from "../components/GetInvolvedLink.astro";
@@ -53,7 +54,7 @@ const emphasisWords = c.headlineEmphasis.split(" ");
       <div class="hero-bottom">
         <div class="hero-copy">
           <p class="hero-lead">{c.introduction}</p>
-          <a class="text-link" href="/research">
+          <a class="text-link" href={withBase("/research")}>
             Explore the research <span aria-hidden="true">↗</span>
           </a>
         </div>
@@ -74,7 +75,7 @@ const emphasisWords = c.headlineEmphasis.split(" ");
         {c.issueTitle}
       </h2>
       <p>{c.issueBody}</p>
-      <a class="text-link" href="/research#definitions">
+      <a class="text-link" href={withBase("/research#definitions")}>
         {c.issueLink} <span aria-hidden="true">↗</span>
       </a>
       <Citation source="ols" label="Time definitions: Seattle OLS" />
@@ -101,7 +102,9 @@ const emphasisWords = c.headlineEmphasis.split(" ");
     <EvidenceSnapshot />
     <p class="section-footnote">
       Published research, not findings from this project.{" "}
-      <a href="/research#methodology">Read how our study is designed.</a>
+      <a href={withBase("/research#methodology")}>
+        Read how our study is designed.
+      </a>
     </p>
   </section>
 
@@ -142,13 +145,13 @@ const emphasisWords = c.headlineEmphasis.split(" ");
           optional uploads.
         </p>
         <SurveyLink />
-        <a href="/workers" class="text-link">
+        <a href={withBase("/workers")} class="text-link">
           Participation & what to expect <span aria-hidden="true">↗</span>
         </a>
         {!privacyReady && (
           <p class="small-copy">
             Response access and retention details are still pending.{" "}
-            <a href="/privacy">Read the privacy notice.</a>
+            <a href={withBase("/privacy")}>Read the privacy notice.</a>
           </p>
         )}
       </div>
@@ -179,7 +182,7 @@ const emphasisWords = c.headlineEmphasis.split(" ");
       <h2 id="progress-title">{c.progressTitle}</h2>
       <div>
         <p>{c.progressBody}</p>
-        <a class="text-link" href="/updates">
+        <a class="text-link" href={withBase("/updates")}>
           Follow the progress <span aria-hidden="true">↗</span>
         </a>
       </div>

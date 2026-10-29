@@ -1,8 +1,9 @@
 ---
+import { withBase, withoutBase } from "../utils/urls";
 import { site, nav } from "../config/site";
 import SurveyLink from "./SurveyLink.astro";
 import GetInvolvedLink from "./GetInvolvedLink.astro";
-const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const pathname = withoutBase(Astro.url.pathname).replace(/\/$/, "") || "/";
 ---
 
 <a href="#main" class="skip-link">
@@ -10,7 +11,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 </a>
 <header class:list={["site-header", { "home-header": pathname === "/" }]}>
   <div class="header-inner container">
-    <a href="/" class="wordmark" aria-label={`${site.name}, home`}>
+    <a href={withBase("/")} class="wordmark" aria-label={`${site.name}, home`}>
       <span class="wordmark-name">
         {site.name}
         <span class="wordmark-period">.</span>
@@ -19,7 +20,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
     <nav class="desktop-nav" aria-label="Main navigation">
       {nav.map((item) => (
         <a
-          href={item.href}
+          href={withBase(item.href)}
           aria-current={pathname === item.href ? "page" : undefined}
         >
           {item.label}
@@ -36,14 +37,14 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
         <nav aria-label="Mobile navigation">
           {nav.map((item) => (
             <a
-              href={item.href}
+              href={withBase(item.href)}
               aria-current={pathname === item.href ? "page" : undefined}
             >
               {item.label}
               <span aria-hidden="true">↗</span>
             </a>
           ))}
-          <a href="/privacy">
+          <a href={withBase("/privacy")}>
             Participation & privacy<span aria-hidden="true">↗</span>
           </a>
         </nav>

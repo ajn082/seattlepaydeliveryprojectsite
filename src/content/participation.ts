@@ -9,13 +9,13 @@ export const participation = {
   purpose:
     "Responses will support independent economics research and a public summary intended to inform worker-centered discussion. They will not be used to declare the law a success or failure before the evidence is examined.",
   pending:
-    "Before public launch, the researcher must confirm who can access responses and uploads, and how long they will be kept. Those practices have not yet been finalized for this site. Contact the researcher before participating if you need that information.",
+    "Some participation and privacy details still need confirmation before public launch. Confirmed practices and any outstanding details are listed below. Contact the researcher before participating if you need clarification.",
   anonymity:
     "The form describes itself as anonymous, but free-text answers or an unredacted screenshot could identify someone. This website does not promise complete anonymity.",
   provider:
     "The survey opens on Tally, a separate service. Tally hosts and processes the form and may process technical information under its own privacy notice. This website does not embed the survey or receive its answers.",
   website:
-    "This site has no analytics, advertising trackers, cookies, accounts, or response database added by the project. A future hosting provider may process ordinary request information to serve and secure the site; hosting details must be reviewed before publication.",
+    "This site uses GitHub Pages hosting. GitHub logs visitors’ IP addresses for security. The project has added no analytics, advertising trackers, cookies, accounts, or response database.",
   rights:
     "For official information on minimum payment and other app-based worker protections, use the Seattle Office of Labor Standards resources below. These are general resources, not personalized legal advice.",
   language:

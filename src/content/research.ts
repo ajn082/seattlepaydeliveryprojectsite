@@ -72,7 +72,7 @@ export const research = {
       body: "Responses can describe the participating workers’ experiences and suggest questions for further study. On their own, they cannot establish citywide causal effects or a representative average for all Seattle delivery workers.",
     },
   ],
-  about: `${site.name} is an independent, student-led economics research initiative led by ${site.researcher}. It combines a review of existing evidence with an original worker survey to make the policy question understandable and support evidence-informed protections for delivery workers.`,
+  about: `${site.name} is an independent, student-led economics research initiative. It combines a review of existing evidence with an original worker survey to make the policy question understandable and support evidence-informed protections for delivery workers.`,
   advocacy:
     "The commitment is to workers’ economic well-being and honest research. Recommendations, if developed, will follow the evidence and be presented separately from empirical findings.",
 };

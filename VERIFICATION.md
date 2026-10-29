@@ -8,7 +8,7 @@ Initial checks completed locally on October 27, 2026; the hero and GitHub Pages 
 - Type and content checks passed with zero diagnostics. Both the local root build and the `/seattlepaydeliveryprojectsite` build passed page, link, and asset checks. The final Pages build contains seven HTML pages and 204 links.
 - Verified the Pages build in the in-app browser: the hero image loads, the worker page opens through navigation, the active navigation state is correct, survey destinations remain unchanged, and the confirmed privacy notice renders. No Chrome or Lighthouse process was started for this hosting setup.
 - Canonical URLs, the sharing image, favicon, internal navigation, anchors, and the sitemap preserve the repository URL prefix. Local development retains its root address.
-- The researcher confirmed that only Amaye Jain has project-account access to responses and optional screenshots. Raw responses and screenshots are retained for the research and related advocacy, then deleted when that work is complete; no fixed end date has been set. The privacy configuration is confirmed and the release check passes.
+- The researcher confirmed that only the project’s sole researcher has project-account access to responses and optional screenshots. Raw responses and screenshots are retained for the research and related advocacy, then deleted when that work is complete; no fixed end date has been set. The privacy configuration is confirmed and the release check passes.
 - The site discloses GitHub Pages hosting and GitHub's logging of visitor IP addresses for security. No project analytics or advertising trackers were added.
 
 ## Build and content

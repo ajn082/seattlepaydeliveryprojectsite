@@ -5,10 +5,7 @@ import { sources } from "../src/content/sources";
 
 const checkHttps = (value: string, label: string) =>
   assert.equal(new URL(value).protocol, "https:", `${label} must use HTTPS`);
-assert(
-  site.name.trim() && site.researcher.trim(),
-  "Project identity is required",
-);
+assert(site.name.trim(), "Project identity is required");
 assert.match(
   site.contactEmail,
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/,

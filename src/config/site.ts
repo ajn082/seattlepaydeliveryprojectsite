@@ -1,14 +1,12 @@
 // Public project settings. Never put survey responses or secrets in this file.
 export const site = {
   name: "Seattle Delivery Pay Project",
-  researcher: "Amaye Jain",
-  contactEmail: "amayejain12@gmail.com",
-  canonicalUrl: "https://seattledeliverypayproject.org/" as
-    string | null,
+  contactEmail: "hello@seattledeliverypayproject.org",
+  canonicalUrl: "https://seattledeliverypayproject.org/" as string | null,
   surveyUrl: "https://tally.so/r/ODZZJ7" as string | null,
   volunteerUrl: null as string | null,
   flyerUrl: null as string | null,
-  reviewedAt: "2026-10-28",
+  reviewedAt: "2026-10-29",
   status: "Data collection in progress",
   survey: {
     eligibility:
@@ -17,7 +15,7 @@ export const site = {
     provider: "Tally",
     privacyConfirmed: true,
     responseAccess:
-      "Only Amaye Jain, the project researcher, has access to responses and optional screenshot uploads through the project’s survey account." as string | null,
+      "Only the project’s sole researcher has access to responses and optional screenshot uploads through the project’s survey account." as string | null,
     retention:
       "Raw survey responses and optional screenshot uploads will be kept for the research and related advocacy, then deleted when that work is complete. No fixed end date has been set." as string | null,
   },

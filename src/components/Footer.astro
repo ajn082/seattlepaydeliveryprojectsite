@@ -20,13 +20,13 @@ import GetInvolvedLink from "./GetInvolvedLink.astro";
         <a href={withBase("/research#about")}>About the project</a>
         <a href={withBase("/research#sources")}>Sources & references</a>
         <a href={withBase("/privacy")}>Participation & privacy</a>
-        <a href={contactHref()}>Contact {site.researcher}</a>
+        <a href={contactHref()}>Contact {site.name}</a>
       </nav>
     </div>
     <div class="footer-bottom">
       <p>{site.independence}</p>
       <p>
-        Research by {site.researcher}
+        Research by {site.name}
         <br />
         <span>{copy.footer.credit}</span>
       </p>

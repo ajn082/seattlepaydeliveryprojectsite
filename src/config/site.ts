@@ -3,7 +3,7 @@ export const site = {
   name: "Seattle Delivery Pay Project",
   researcher: "Amaye Jain",
   contactEmail: "amayejain12@gmail.com",
-  canonicalUrl: "https://ajn082.github.io/seattlepaydeliveryprojectsite/" as
+  canonicalUrl: "https://seattledeliverypayproject.org/" as
     string | null,
   surveyUrl: "https://tally.so/r/ODZZJ7" as string | null,
   volunteerUrl: null as string | null,

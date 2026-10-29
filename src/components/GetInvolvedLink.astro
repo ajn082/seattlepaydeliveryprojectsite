@@ -1,0 +1,13 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<a
+  href="/get-involved"
+  class:list={["button", "button-outline", "involvement-link", { compact }]}
+>
+  Get involved <span aria-hidden="true">↗</span>
+</a>

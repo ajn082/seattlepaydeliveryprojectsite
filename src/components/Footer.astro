@@ -1,0 +1,34 @@
+---
+import { site, contactHref } from "../config/site";
+import { copy } from "../content/copy";
+import SurveyLink from "./SurveyLink.astro";
+import GetInvolvedLink from "./GetInvolvedLink.astro";
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-invitation">
+        <p class="footer-statement">{copy.footer.statement}</p>
+        <div class="footer-actions">
+          <SurveyLink />
+          <GetInvolvedLink />
+        </div>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/research#about">About the project</a>
+        <a href="/research#sources">Sources & references</a>
+        <a href="/privacy">Participation & privacy</a>
+        <a href={contactHref()}>Contact {site.researcher}</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>{site.independence}</p>
+      <p>
+        Research by {site.researcher}
+        <br />
+        <span>{copy.footer.credit}</span>
+      </p>
+    </div>
+  </div>
+</footer>

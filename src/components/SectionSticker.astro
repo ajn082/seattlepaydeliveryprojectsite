@@ -1,0 +1,18 @@
+---
+import { Image } from "astro:assets";
+import bag from "../assets/illustrations/delivery-bag-sticker.png";
+import phone from "../assets/illustrations/phone-time-sticker.png";
+interface Props {
+  kind: "delivery-bag" | "phone-time";
+}
+const { kind } = Astro.props;
+---
+
+<span class={`section-sticker sticker-${kind}`} aria-hidden="true">
+  <Image
+    src={kind === "delivery-bag" ? bag : phone}
+    width={320}
+    alt=""
+    loading="lazy"
+  />
+</span>

@@ -1,0 +1,8 @@
+GSAP, ScrollTrigger, and SplitText
+Copyright (c) 2008-2026, GreenSock. All rights reserved.
+
+License declared by the installed GSAP package:
+Standard "no charge" license: https://gsap.com/standard-license
+
+The animation library is bundled locally. This project does not load GSAP
+from a third-party CDN or connect visitors to a GSAP account or service.

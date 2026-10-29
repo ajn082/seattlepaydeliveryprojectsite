@@ -1,0 +1,70 @@
+---
+import { site, nav } from "../config/site";
+import SurveyLink from "./SurveyLink.astro";
+import GetInvolvedLink from "./GetInvolvedLink.astro";
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<a href="#main" class="skip-link">
+  Skip to content
+</a>
+<header class:list={["site-header", { "home-header": pathname === "/" }]}>
+  <div class="header-inner container">
+    <a href="/" class="wordmark" aria-label={`${site.name}, home`}>
+      <span class="wordmark-name">
+        {site.name}
+        <span class="wordmark-period">.</span>
+      </span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          aria-current={pathname === item.href ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <SurveyLink compact />
+      <GetInvolvedLink compact />
+      <details class="mobile-menu">
+        <summary aria-label="Navigation menu">
+          <span class="menu-lines" aria-hidden="true"></span>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          {nav.map((item) => (
+            <a
+              href={item.href}
+              aria-current={pathname === item.href ? "page" : undefined}
+            >
+              {item.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+          <a href="/privacy">
+            Participation & privacy<span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>(".mobile-menu");
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menu?.open) {
+      menu.open = false;
+      menu.querySelector("summary")?.focus();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (
+      menu?.open &&
+      event.target instanceof Node &&
+      !menu.contains(event.target)
+    )
+      menu.open = false;
+  });
+</script>

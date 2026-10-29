@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page not found"
+  description="This page could not be found. Return to the Seattle Delivery Pay Project or find worker participation information."
+>
+  <section class="container not-found">
+    <p class="eyebrow">Page not found</p>
+    <h1>
+      A wrong turn.
+      <br />
+      <em>A way back.</em>
+    </h1>
+    <p>This address doesn’t lead to a page on the project.</p>
+    <div class="hero-actions">
+      <a href="/" class="button">
+        Back to home <span aria-hidden="true">↗</span>
+      </a>
+      <a href="/workers" class="text-link">
+        For delivery workers <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

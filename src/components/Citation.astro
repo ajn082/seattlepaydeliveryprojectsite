@@ -1,0 +1,20 @@
+---
+import { sources, type SourceId } from "../content/sources";
+import { site, formatDate } from "../config/site";
+interface Props {
+  source: SourceId;
+  label?: string;
+  reviewed?: boolean;
+}
+const { source, label, reviewed = false } = Astro.props;
+const item = sources[source];
+---
+
+<p class="citation">
+  <a href={item.url}>
+    {label || item.publisher}
+    <span aria-hidden="true"> ↗</span>
+  </a>
+  <span>{item.date}</span>
+  {reviewed && <span>Last reviewed {formatDate(site.reviewedAt)}</span>}
+</p>

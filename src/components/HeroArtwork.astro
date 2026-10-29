@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import deliveryCar from "../assets/illustrations/delivery-car-illustration.png";
+---
+
+<!-- Original decorative ink illustration of a delivery car and bag. -->
+<div class="hero-artwork" aria-hidden="true">
+  <div class="hero-art-halftone"></div>
+  <div class="hero-art-backplate"></div>
+  <div class="hero-art-speedlines">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <Image
+    src={deliveryCar}
+    class="hero-courier"
+    width={720}
+    alt=""
+    loading="eager"
+    fetchpriority="high"
+  />
+</div>

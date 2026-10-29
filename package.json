@@ -1,0 +1,32 @@
+{
+  "name": "seattle-delivery-pay-project",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
+    "dev:stop": "ASTRO_TELEMETRY_DISABLED=1 astro dev stop",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check && node --import tsx scripts/check-content.ts",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-build.mjs",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1",
+    "preview:stop": "ASTRO_TELEMETRY_DISABLED=1 astro preview stop",
+    "assets:generate": "node --import tsx scripts/generate-social.ts",
+    "check:release": "node --import tsx scripts/check-content.ts --release"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-sans": "^5.2.0",
+    "@fontsource/source-serif-4": "^5.2.0",
+    "astro": "^7.4.2",
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@types/node": "^24.0.0",
+    "sharp": "^0.35.5",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

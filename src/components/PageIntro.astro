@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  headline: string;
+  introduction: string;
+}
+const { label, headline, introduction } = Astro.props;
+---
+
+<section class="page-intro container">
+  <p class="eyebrow">{label}</p>
+  <h1>{headline}</h1>
+  <p class="page-lead">{introduction}</p>
+  <slot />
+</section>

@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SurveyLink from "../components/SurveyLink.astro";
+import { copy } from "../content/copy";
+import { site, contactHref } from "../config/site";
+const c = copy.involved;
+---
+
+<BaseLayout title={c.title} description={c.description} story>
+  <PageIntro
+    label={c.title}
+    headline={c.headline}
+    introduction={c.introduction}
+  />
+  <div class="container involvement-paths">
+    {c.paths.map((path) => (
+      <section class="involvement-path section-ruled" id={path.id}>
+        <div class="path-heading">
+          <p class="path-label">{path.label}</p>
+          <h2>{path.title}</h2>
+        </div>
+        <div class="path-body">
+          <p>{path.body}</p>
+          <ul class="prose-list">
+            {path.details.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+          <p class="small-copy">{path.note}</p>
+          <a
+            class="text-link"
+            href={
+              path.id === "volunteer" && site.volunteerUrl
+                ? site.volunteerUrl
+                : contactHref(path.subject)
+            }
+          >
+            {path.id === "volunteer" && site.volunteerUrl
+              ? "Sign up to volunteer"
+              : path.action}{" "}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+    ))}
+    <section class="share-summary" aria-labelledby="summary-title">
+      <p class="eyebrow">A summary to share</p>
+      <h2 id="summary-title">Start a conversation.</h2>
+      <p id="project-summary">{c.summary}</p>
+      <div class="share-actions">
+        <button
+          type="button"
+          class="button button-outline"
+          id="copy-summary"
+          hidden
+        >
+          Copy project summary <span aria-hidden="true">↗</span>
+        </button>
+        <SurveyLink variant="text" />
+        {site.flyerUrl && (
+          <a class="text-link" href={site.flyerUrl}>
+            Download the approved flyer <span aria-hidden="true">↗</span>
+          </a>
+        )}
+      </div>
+      <p
+        class="copy-status small-copy"
+        role="status"
+        aria-live="polite"
+        id="copy-status"
+      ></p>
+    </section>
+    <section class="contact-strip">
+      <h2>Have another way to help?</h2>
+      <a class="email-link" href={contactHref()}>
+        {site.contactEmail} <span aria-hidden="true">↗</span>
+      </a>
+    </section>
+  </div>
+</BaseLayout>
+<script>
+  const button = document.querySelector<HTMLButtonElement>("#copy-summary");
+  const summary = document.querySelector<HTMLElement>("#project-summary");
+  const status = document.querySelector<HTMLElement>("#copy-status");
+  if (button && summary && status) {
+    button.hidden = false;
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(summary.innerText);
+        status.textContent = "Project summary copied.";
+      } catch {
+        status.textContent =
+          "Copying is unavailable. Please select and copy the summary above.";
+      }
+    });
+  }
+</script>

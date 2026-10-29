@@ -1,0 +1,5 @@
+<script>
+  import { startStoryMotion } from "../scripts/story-motion";
+  const cleanup = startStoryMotion();
+  if (import.meta.hot) import.meta.hot.dispose(cleanup);
+</script>

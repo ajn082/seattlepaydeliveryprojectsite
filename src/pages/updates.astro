@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Status from "../components/Status.astro";
+import SurveyLink from "../components/SurveyLink.astro";
+import { copy } from "../content/copy";
+const c = copy.updates;
+const updates = (await getCollection("updates")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const entries = await Promise.all(
+  updates.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+const dateLabel = (date: Date) =>
+  new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+---
+
+<BaseLayout title={c.title} description={c.description}>
+  <PageIntro
+    label={c.title}
+    headline={c.headline}
+    introduction={c.introduction}
+  />
+  <div class="container updates-layout">
+    <section aria-label="Project updates" class="updates-feed">
+      {entries.length ? (
+        entries.map(({ entry, Content }) => (
+          <article class="update-entry">
+            <time datetime={entry.data.date.toISOString().slice(0, 10)}>
+              {dateLabel(entry.data.date)}
+            </time>
+            <div>
+              <p class="update-category">{entry.data.category}</p>
+              <h2>{entry.data.title}</h2>
+              <div class="update-prose">
+                <Content />
+              </div>
+            </div>
+          </article>
+        ))
+      ) : (
+        <p>No project updates have been published yet.</p>
+      )}
+    </section>
+    <aside class="findings-aside">
+      <Status />
+      <h2>{c.findingsTitle}</h2>
+      <p>{c.findingsBody}</p>
+      <a class="text-link" href="/research#methodology">
+        Read the methodology <span aria-hidden="true">↗</span>
+      </a>
+      <div class="aside-survey">
+        <p>Delivering food in Seattle?</p>
+        <SurveyLink />
+      </div>
+    </aside>
+  </div>
+</BaseLayout>

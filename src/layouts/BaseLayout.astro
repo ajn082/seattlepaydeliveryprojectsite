@@ -1,0 +1,73 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import MobileActions from "../components/MobileActions.astro";
+import StoryMotion from "../components/StoryMotion.astro";
+import { site, indexingReady } from "../config/site";
+import "@fontsource/source-serif-4/600.css";
+import "@fontsource/source-serif-4/600-italic.css";
+import "@fontsource/ibm-plex-sans/400.css";
+import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/ibm-plex-sans/600.css";
+import "@fontsource/ibm-plex-sans/700.css";
+import "../styles/global.css";
+interface Props {
+  title: string;
+  description: string;
+  story?: boolean;
+}
+const { title, description, story = false } = Astro.props;
+const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+const canonical = site.canonicalUrl
+  ? new URL(Astro.url.pathname, site.canonicalUrl).href
+  : null;
+const image = site.canonicalUrl
+  ? new URL("/social-card.png", site.canonicalUrl).href
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F6F3EC" />
+    <meta name="color-scheme" content="light" />
+    <meta name="author" content={site.researcher} />
+    <meta
+      name="robots"
+      content={indexingReady ? "index, follow" : "noindex, nofollow"}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {image && (
+      <>
+        <meta property="og:image" content={image} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+          property="og:image:alt"
+          content="Seattle Delivery Pay Project. What changed for workers’ earnings? Independent, student-led research."
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={image} />
+      </>
+    )}
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileActions />
+    {story && <StoryMotion />}
+  </body>
+</html>

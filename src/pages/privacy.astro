@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageIntro from "../components/PageIntro.astro";
+import { copy } from "../content/copy";
+import { participation as p } from "../content/participation";
+import { site, contactHref, formatDate, privacyReady } from "../config/site";
+import { sources } from "../content/sources";
+const c = copy.privacy;
+---
+
+<BaseLayout title={c.title} description={c.description}>
+  <PageIntro
+    label={c.title}
+    headline={c.headline}
+    introduction={c.introduction}
+  />
+  <div class="container privacy-layout">
+    <div class="privacy-body">
+      {!privacyReady && (
+        <aside class="notice">
+          <h2>Privacy terms pending confirmation</h2>
+          <p>{p.pending}</p>
+        </aside>
+      )}
+      <section class="article-section">
+        <h2>Your choice to take part.</h2>
+        <p>{p.voluntary}</p>
+        <p>
+          <strong>Eligibility:</strong> {site.survey.eligibility}
+        </p>
+        <p>
+          {site.survey.duration} The estimate comes from the form and has not
+          been independently timed.
+        </p>
+      </section>
+      <section class="article-section">
+        <h2>What the form asks.</h2>
+        <p>
+          The survey asks about delivery work, earnings including tips before
+          work expenses, platforms, and perceived changes over time. It also
+          includes optional demographics, comments, and a screenshot upload.
+        </p>
+        <p>{p.noIdentifiers}</p>
+        <p>{p.anonymity}</p>
+      </section>
+      <section class="article-section">
+        <h2>Optional screenshots.</h2>
+        <p>{p.uploads}</p>
+      </section>
+      <section class="article-section">
+        <h2>Who can access responses, and for how long?</h2>
+        <dl class="privacy-terms">
+          <div>
+            <dt>Response and upload access</dt>
+            <dd>
+              {site.survey.responseAccess ||
+                "Pending researcher confirmation before public launch."}
+            </dd>
+          </div>
+          <div>
+            <dt>Retention and deletion</dt>
+            <dd>
+              {site.survey.retention ||
+                "Pending researcher confirmation before public launch."}
+            </dd>
+          </div>
+        </dl>
+        {!privacyReady && (
+          <p>
+            Until these details are settled, contact the researcher for
+            clarification before submitting anything sensitive.
+          </p>
+        )}
+      </section>
+      <section class="article-section">
+        <h2>How public findings will be shared.</h2>
+        <p>{p.use}</p>
+        <p>{p.purpose}</p>
+      </section>
+      <section class="article-section">
+        <h2>The survey provider.</h2>
+        <p>{p.provider}</p>
+        <a class="text-link" href={sources.tallyPrivacy.url}>
+          Read Tally’s privacy notice <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+      <section class="article-section">
+        <h2>This website.</h2>
+        <p>{p.website}</p>
+      </section>
+      <section class="article-section">
+        <h2>Questions or concerns?</h2>
+        <p>
+          Contact {site.researcher} before taking part if you have questions
+          about the study, your information, or an upload.
+        </p>
+        <a
+          class="email-link"
+          href={contactHref(
+            "Privacy question about Seattle Delivery Pay Project",
+          )}
+        >
+          {site.contactEmail} <span aria-hidden="true">↗</span>
+        </a>
+        <p class="review-date">
+          Last reviewed {formatDate(site.reviewedAt)}. No institutional
+          affiliation or research ethics approval is claimed.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

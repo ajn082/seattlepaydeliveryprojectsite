@@ -1,0 +1,26 @@
+import sharp from "sharp";
+import { writeFile } from "node:fs/promises";
+import { site } from "../src/config/site";
+
+const xml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#F6F3EC"/>
+<path d="M60 112H1140M60 548H1140" stroke="#191919" stroke-width="1.5"/>
+<text x="60" y="72" fill="#191919" font-family="Arial,sans-serif" font-size="24" font-weight="bold">${xml(site.name)}</text>
+<text x="60" y="267" fill="#191919" font-family="Georgia,serif" font-size="92" letter-spacing="-4">Seattle delivery pay.</text>
+<rect x="49" y="284" width="905" height="127" fill="#C6ADE8" stroke="#191919" stroke-width="2"/>
+<text x="60" y="388" fill="#191919" font-family="Georgia,serif" font-style="italic" font-size="105" letter-spacing="-4">What changed?</text>
+<text x="65" y="473" fill="#191919" font-family="Arial,sans-serif" font-size="25">Independent, student-led research on Seattle delivery pay.</text>
+<text x="60" y="591" fill="#5D5B56" font-family="Arial,sans-serif" font-size="18">Worker-centered. Evidence-led.</text>
+<text x="1040" y="487" fill="#73518F" font-family="Arial,sans-serif" font-size="90">↗</text>
+</svg>`;
+await writeFile(new URL("../public/social-card.svg", import.meta.url), svg);
+await sharp(Buffer.from(svg))
+  .png()
+  .toFile(new URL("../public/social-card.png", import.meta.url).pathname);
+console.log("Generated original 1200 × 630 sharing image.");

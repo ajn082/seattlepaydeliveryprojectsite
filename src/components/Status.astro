@@ -1,0 +1,8 @@
+---
+import { site, formatDate } from "../config/site";
+---
+
+<div class="research-status">
+  <span class="status-label">{site.status}</span>
+  <span class="status-date">As of {formatDate(site.reviewedAt)}</span>
+</div>

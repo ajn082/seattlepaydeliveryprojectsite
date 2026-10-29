@@ -1,0 +1,23 @@
+---
+import { site } from "../config/site";
+interface Props {
+  variant?: "primary" | "text";
+  compact?: boolean;
+}
+const { variant = "primary", compact = false } = Astro.props;
+---
+
+{site.surveyUrl ? (
+  <a
+    href={site.surveyUrl}
+    class:list={[
+      "survey-link",
+      variant === "primary" ? "button" : "text-link",
+      { compact },
+    ]}
+  >
+    Take the survey <span aria-hidden="true">↗</span>
+  </a>
+) : (
+  <span class="configuration-notice">Survey link pending configuration.</span>
+)}
